@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenHaus — Live Sustainably</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a3a2a;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #d8f3dc;
+    --cream: #f9f5ef;
+    --warm-white: #fefcf8;
+    --charcoal: #1e1e1e;
+    --text-muted: #6b7c6e;
+    --accent: #b7e4c7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(26,58,42,0.96);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 3rem;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: var(--green-pale);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { font-style: italic; color: var(--green-light); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: rgba(216,243,220,0.75); text-decoration: none;
+    font-size: 0.875rem; font-weight: 400; letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-pale); }
+  .nav-cta {
+    background: var(--green-light); color: var(--green-dark);
+    padding: 0.6rem 1.4rem; border-radius: 100px;
+    font-size: 0.875rem; font-weight: 500; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(165deg, var(--green-dark) 0%, #0f2419 60%, #1a3a2a 100%);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 8rem 3rem 5rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(ellipse at 80% 50%, rgba(82,183,136,0.12) 0%, transparent 60%),
+                      radial-gradient(ellipse at 20% 80%, rgba(45,106,79,0.2) 0%, transparent 50%);
+  }
+  .hero-grid {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: center; position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 3px;
+    color: var(--green-light); text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1; color: var(--green-pale);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--green-light);
+    display: block;
+  }
+  .hero-desc {
+    color: rgba(216,243,220,0.7); font-size: 1.05rem; line-height: 1.7;
+    margin-bottom: 2.5rem; max-width: 480px;
+    font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green-light); color: var(--green-dark);
+    padding: 0.9rem 2rem; border-radius: 100px;
+    font-size: 0.95rem; font-weight: 500; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-ghost {
+    border: 1px solid rgba(82,183,136,0.4); color: var(--green-pale);
+    padding: 0.9rem 2rem; border-radius: 100px;
+    font-size: 0.95rem; font-weight: 400; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--green-light); background: rgba(82,183,136,0.08); }
+
+  /* Hero stats */
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+    margin-top: 3rem;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(82,183,136,0.2);
+    border-radius: 16px; padding: 1.25rem;
+  }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; color: var(--green-light);
+    line-height: 1; margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.8rem; color: rgba(216,243,220,0.6);
+    font-weight: 300; letter-spacing: 0.3px;
+  }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative; display: flex; justify-content: center; align-items: center;
+  }
+  .building-art {
+    width: 100%; max-width: 480px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(82,183,136,0.15);
+    border-radius: 24px; padding: 2rem;
+    position: relative;
+  }
+  .building-floors { display: flex; flex-direction: column; gap: 4px; }
+  .floor {
+    display: grid; gap: 4px;
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .window {
+    height: 36px; border-radius: 6px;
+    background: rgba(82,183,136,0.15);
+    border: 1px solid rgba(82,183,136,0.2);
+    transition: background 0.3s;
+    animation: pulse-window 4s ease-in-out infinite;
+  }
+  .window.lit { background: rgba(183,228,199,0.35); border-color: rgba(82,183,136,0.5); }
+  .window.solar { background: rgba(252,196,25,0.25); border-color: rgba(252,196,25,0.4); }
+  @keyframes pulse-window {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+  .building-label {
+    text-align: center; margin-top: 1.5rem;
+    color: rgba(216,243,220,0.5); font-size: 0.8rem; letter-spacing: 1px;
+  }
+  .eco-badges {
+    position: absolute; right: -1.5rem; top: 2rem;
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .eco-badge {
+    background: var(--green-mid); color: var(--green-pale);
+    padding: 0.5rem 0.9rem; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 500;
+    border: 1px solid rgba(82,183,136,0.3);
+    white-space: nowrap;
+  }
+
+  /* SECTION BASE */
+  section { padding: 6rem 3rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 3px;
+    color: var(--green-mid); text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.2;
+    color: var(--green-dark); margin-bottom: 1rem;
+  }
+  .section-desc {
+    font-size: 1.05rem; color: var(--text-muted);
+    line-height: 1.7; font-weight: 300;
+    max-width: 560px; margin-bottom: 3rem;
+  }
+
+  /* ABOUT / MISSION */
+  .about {
+    background: var(--cream);
+  }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .about-image-block {
+    background: var(--green-dark); border-radius: 24px;
+    padding: 3rem; position: relative; overflow: hidden;
+    min-height: 400px; display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .about-image-block::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 20%, rgba(82,183,136,0.2) 0%, transparent 60%);
+  }
+  .big-leaf {
+    font-size: 8rem; position: absolute; top: 1rem; right: 1.5rem; opacity: 0.25;
+    filter: grayscale(0.3);
+  }
+  .about-caption {
+    position: relative; z-index: 1;
+  }
+  .about-caption h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem;
+    color: var(--green-pale); margin-bottom: 0.5rem;
+  }
+  .about-caption p { color: rgba(216,243,220,0.65); font-size: 0.9rem; font-weight: 300; }
+
+  .mission-points { display: flex; flex-direction: column; gap: 1.5rem; }
+  .mission-point {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .mission-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--green-pale); color: var(--green-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .mission-text h4 {
+    font-weight: 500; font-size: 1rem; margin-bottom: 0.3rem;
+    color: var(--green-dark);
+  }
+  .mission-text p {
+    font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; font-weight: 300;
+  }
+
+  /* FEATURES */
+  .features { background: var(--warm-white); }
+  .features-header { text-align: center; max-width: 640px; margin: 0 auto 4rem; }
+  .features-header .section-desc { margin: 0 auto; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .feature-card {
+    background: var(--cream); border-radius: 20px;
+    padding: 2rem 1.75rem; border: 1px solid rgba(45,106,79,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26,58,42,0.1);
+  }
+  .feature-card.featured {
+    background: var(--green-dark); border-color: transparent;
+  }
+  .feature-card.featured .feature-title { color: var(--green-pale); }
+  .feature-card.featured .feature-desc { color: rgba(216,243,220,0.65); }
+  .feature-icon {
+    font-size: 2rem; margin-bottom: 1.25rem;
+  }
+  .feature-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; margin-bottom: 0.7rem; color: var(--green-dark);
+  }
+  .feature-desc {
+    font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; font-weight: 300;
+  }
+  .feature-tag {
+    display: inline-block; margin-top: 1rem;
+    background: var(--green-pale); color: var(--green-mid);
+    font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+  }
+  .feature-card.featured .feature-tag {
+    background: rgba(82,183,136,0.2); color: var(--green-light);
+  }
+
+  /* ROOMS */
+  .rooms { background: var(--green-dark); }
+  .rooms .section-title { color: var(--green-pale); }
+  .rooms .section-desc { color: rgba(216,243,220,0.65); }
+  .rooms .section-label { color: var(--green-light); }
+  .rooms-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .room-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(82,183,136,0.15);
+    border-radius: 20px; overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .room-card:hover { transform: translateY(-4px); }
+  .room-visual {
+    height: 140px; display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; background: rgba(45,106,79,0.3);
+  }
+  .room-info { padding: 1.5rem; }
+  .room-name {
+    font-family: 'Playfair Display', serif; font-size: 1.15rem;
+    color: var(--green-pale); margin-bottom: 0.4rem;
+  }
+  .room-details { font-size: 0.85rem; color: rgba(216,243,220,0.55); font-weight: 300; }
+  .room-price {
+    margin-top: 1rem; font-size: 1.1rem; font-weight: 500; color: var(--green-light);
+  }
+  .room-price span { font-size: 0.8rem; font-weight: 300; color: rgba(216,243,220,0.5); }
+
+  /* IMPACT NUMBERS */
+  .impact { background: var(--cream); }
+  .impact-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  .impact-card { text-align: center; }
+  .impact-number {
+    font-family: 'Playfair Display', serif; font-size: 3.5rem;
+    color: var(--green-mid); line-height: 1; margin-bottom: 0.5rem;
+  }
+  .impact-label {
+    font-size: 0.9rem; color: var(--text-muted); font-weight: 300; line-height: 1.5;
+  }
+  .impact-divider {
+    width: 1px; background: rgba(45,106,79,0.15);
+  }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--warm-white); }
+  .testimonials-header { text-align: center; max-width: 520px; margin: 0 auto 4rem; }
+  .testimonials-header .section-desc { margin: 0 auto; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .testi-card {
+    background: var(--cream); border-radius: 20px; padding: 2rem;
+    border: 1px solid rgba(45,106,79,0.1);
+  }
+  .testi-stars { color: var(--green-light); font-size: 1rem; margin-bottom: 1rem; }
+  .testi-quote {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 1rem; line-height: 1.6; color: var(--green-dark);
+    margin-bottom: 1.5rem;
+  }
+  .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--green-mid); color: var(--green-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 500;
+  }
+  .testi-name { font-weight: 500; font-size: 0.9rem; color: var(--green-dark); }
+  .testi-since { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; }
+
+  /* CTA SECTION */
+  .cta-section {
+    background: var(--green-mid);
+    padding: 6rem 3rem; text-align: center;
+  }
+  .cta-section .section-title { color: var(--green-pale); }
+  .cta-section p { color: rgba(216,243,220,0.75); font-size: 1.1rem; font-weight: 300; margin-bottom: 2.5rem; }
+  .cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .btn-white {
+    background: var(--green-pale); color: var(--green-dark);
+    padding: 1rem 2.5rem; border-radius: 100px;
+    font-size: 1rem; font-weight: 500; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-white:hover { background: #fff; transform: translateY(-2px); }
+
+  /* CONTACT FORM */
+  .contact { background: var(--cream); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-form {
+    background: var(--warm-white); border-radius: 24px; padding: 2.5rem;
+    border: 1px solid rgba(45,106,79,0.1);
+  }
+  .contact-form h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.5rem;
+    color: var(--green-dark); margin-bottom: 1.5rem;
+  }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label {
+    display: block; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);
+    letter-spacing: 0.5px; margin-bottom: 0.4rem;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.75rem 1rem;
+    border: 1px solid rgba(45,106,79,0.2); border-radius: 10px;
+    background: var(--cream); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; color: var(--charcoal);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--green-mid);
+  }
+  .form-group textarea { height: 100px; resize: none; }
+  .form-submit {
+    width: 100%; padding: 0.9rem;
+    background: var(--green-mid); color: var(--green-pale);
+    border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 500; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--green-dark); }
+  .contact-info h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.8rem;
+    color: var(--green-dark); margin-bottom: 1rem;
+  }
+  .contact-info p {
+    color: var(--text-muted); font-weight: 300; line-height: 1.7; margin-bottom: 2rem;
+  }
+  .contact-detail { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
+  .contact-detail-icon {
+    width: 36px; height: 36px; background: var(--green-pale); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+  }
+  .contact-detail-text strong { display: block; font-size: 0.85rem; color: var(--green-dark); }
+  .contact-detail-text span { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; }
+
+  /* FOOTER */
+  footer {
+    background: var(--green-dark); padding: 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif; font-size: 1.4rem;
+    color: var(--green-pale);
+  }
+  .footer-logo span { font-style: italic; color: var(--green-light); }
+  .footer-copy {
+    color: rgba(216,243,220,0.4); font-size: 0.85rem; font-weight: 300;
+  }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    color: rgba(216,243,220,0.55); font-size: 0.85rem; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--green-pale); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content { animation: fadeUp 0.8s ease both; }
+  .hero-visual { animation: fadeUp 0.8s 0.2s ease both; }
+
+  /* SUCCESS MESSAGE */
+  .success-msg {
+    display: none; background: var(--green-pale); color: var(--green-dark);
+    border-radius: 10px; padding: 1rem; margin-top: 1rem;
+    font-size: 0.9rem; font-weight: 500; text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .features-grid, .rooms-grid, .testi-grid { grid-template-columns: 1fr; }
+    .impact-grid { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Green<span>Haus</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">Our Mission</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a Tour</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Sustainable Living · Boston Metro Area</div>
+      <h1>The Future of<em>Modern Living</em>is Green</h1>
+      <p class="hero-desc">
+        GreenHaus is a 30-unit, net-zero apartment complex designed for 300 residents who believe a better planet starts at home. Ultra-low energy, zero guilt.
+      </p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">Schedule a Tour</a>
+        <a href="#features" class="btn-ghost">Explore Features</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-number">30</div>
+          <div class="stat-label">Modern apartment units</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">300</div>
+          <div class="stat-label">Residents living sustainably</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">72%</div>
+          <div class="stat-label">Less energy than conventional</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Net carbon emissions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="building-art">
+        <div class="building-floors" id="building">
+          <!-- Floors generated by JS -->
+        </div>
+        <div class="building-label">GreenHaus · 30 Units · Net Zero</div>
+      </div>
+      <div class="eco-badges">
+        <div class="eco-badge">☀️ Solar Powered</div>
+        <div class="eco-badge">💧 Rainwater Recycled</div>
+        <div class="eco-badge">♻️ Zero Waste</div>
+        <div class="eco-badge">🌿 LEED Certified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-block">
+        <div class="big-leaf">🌿</div>
+        <div class="about-caption">
+          <h3>Built for the planet. Designed for you.</h3>
+          <p>Every choice in GreenHaus — from insulation to appliances — was made with the Earth in mind.</p>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Our Mission</div>
+        <h2 class="section-title">More than an apartment. A commitment to change.</h2>
+        <p class="section-desc">We built GreenHaus because we believe the housing industry needs to take climate change seriously. Living here means you're part of the solution.</p>
+        <div class="mission-points">
+          <div class="mission-point">
+            <div class="mission-icon">⚡</div>
+            <div class="mission-text">
+              <h4>Drastically Reduced Energy Use</h4>
+              <p>Our advanced insulation, triple-pane windows, and smart climate systems use up to 72% less energy than a typical apartment building.</p>
+            </div>
+          </div>
+          <div class="mission-point">
+            <div class="mission-icon">🌍</div>
+            <div class="mission-text">
+              <h4>Carbon Emissions Eliminated</h4>
+              <p>We offset 100% of remaining emissions through on-site solar generation and verified carbon credits, making GreenHaus truly net-zero.</p>
+            </div>
+          </div>
+          <div class="mission-point">
+            <div class="mission-icon">🌱</div>
+            <div class="mission-text">
+              <h4>Fighting Climate Change Together</h4>
+              <p>By choosing GreenHaus, each resident prevents approximately 4.5 tonnes of CO₂ emissions per year compared to conventional housing.</p>
+            </div>
+          </div>
+          <div class="mission-point">
+            <div class="mission-icon">💡</div>
+            <div class="mission-text">
+              <h4>Modern Smart Home Technology</h4>
+              <p>App-controlled thermostats, automated lighting, and energy dashboards let you see and control your environmental footprint in real time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header">
+      <div class="section-label">What Makes Us Different</div>
+      <h2 class="section-title">Cutting-edge green technology baked into every corner</h2>
+      <p class="section-desc">We didn't bolt sustainability on as an afterthought. It's the foundation everything is built from.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card featured">
+        <div class="feature-icon">☀️</div>
+        <div class="feature-title">Full Solar Array</div>
+        <div class="feature-desc">A rooftop solar installation generates enough clean electricity to power the entire building, with excess fed back to the grid.</div>
+        <span class="feature-tag">Net Energy Producer</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏠</div>
+        <div class="feature-title">Passive Building Design</div>
+        <div class="feature-desc">Thick insulation, triple-glazed windows, and thermal mass design keep interiors comfortable year-round with minimal heating or cooling.</div>
+        <span class="feature-tag">Passive House Standard</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💧</div>
+        <div class="feature-title">Rainwater Harvesting</div>
+        <div class="feature-desc">On-site collection and filtration systems reduce municipal water usage by up to 40%, lowering bills and conserving a critical resource.</div>
+        <span class="feature-tag">40% Water Savings</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚲</div>
+        <div class="feature-title">EV + Bike Hub</div>
+        <div class="feature-desc">20 EV charging stations, a secure bike storage room, and e-bike share membership included with every unit. Cars optional.</div>
+        <span class="feature-tag">Car-Light Living</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">Smart Home Suite</div>
+        <div class="feature-desc">Real-time energy monitoring, smart locks, automated lighting and thermostats all managed from one intuitive app.</div>
+        <span class="feature-tag">AI-Powered</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌳</div>
+        <div class="feature-title">Green Community Spaces</div>
+        <div class="feature-desc">A rooftop garden, communal composting, and native plant landscaping create a thriving micro-ecosystem around the building.</div>
+        <span class="feature-tag">Rooftop Garden</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="rooms" id="rooms">
+  <div class="container">
+    <div class="section-label">Available Units</div>
+    <h2 class="section-title">30 thoughtfully designed homes</h2>
+    <p class="section-desc">Every unit is crafted to be beautiful, efficient, and deeply comfortable. All include smart home tech and sustainable finishes.</p>
+    <div class="rooms-grid">
+      <div class="room-card">
+        <div class="room-visual">🏡</div>
+        <div class="room-info">
+          <div class="room-name">Studio Eco</div>
+          <div class="room-details">10 units · Up to 2 residents · 450–520 sq ft</div>
+          <div class="room-details" style="margin-top:0.3rem">Perfect for singles or couples looking for an efficient, modern space.</div>
+          <div class="room-price">From $1,650 <span>/ month</span></div>
+        </div>
+      </div>
+      <div class="room-card">
+        <div class="room-visual">🛋️</div>
+        <div class="room-info">
+          <div class="room-name">One Bedroom</div>
+          <div class="room-details">12 units · Up to 4 residents · 750–880 sq ft</div>
+          <div class="room-details" style="margin-top:0.3rem">Spacious, light-filled interiors with energy-efficient appliances throughout.</div>
+          <div class="room-price">From $2,100 <span>/ month</span></div>
+        </div>
+      </div>
+      <div class="room-card">
+        <div class="room-visual">🏙️</div>
+        <div class="room-info">
+          <div class="room-name">Two Bedroom</div>
+          <div class="room-details">8 units · Up to 6 residents · 1,050–1,200 sq ft</div>
+          <div class="room-details" style="margin-top:0.3rem">Family-sized units with large windows, flex space, and in-unit laundry.</div>
+          <div class="room-price">From $2,800 <span>/ month</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:3rem;">
+      <p style="color:rgba(216,243,220,0.5); font-size:0.9rem; font-weight:300; margin-bottom:1.5rem;">All rents include water, trash, building Wi-Fi, bike parking, and EV charging credits.</p>
+      <a href="#contact" class="btn-primary">Inquire About Availability</a>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact" id="impact">
+  <div class="container">
+    <div style="text-align:center; max-width:600px; margin:0 auto 4rem;">
+      <div class="section-label">Our Environmental Impact</div>
+      <h2 class="section-title">Numbers that matter for the planet</h2>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="impact-number">1,350t</div>
+        <div class="impact-label">CO₂ avoided per year compared to a conventional building of the same size</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-number">2.1M</div>
+        <div class="impact-label">kWh of solar electricity generated annually — enough to power 190 typical homes</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-number">40%</div>
+        <div class="impact-label">Reduction in municipal water use through rainwater harvesting and low-flow fixtures</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-number">98%</div>
+        <div class="impact-label">Of waste diverted from landfill through composting, recycling, and material reuse programs</div>
+      </div>
+    </div>
+    <div style="background:var(--green-pale); border-radius:20px; padding:2.5rem; text-align:center; max-width:720px; margin:0 auto;">
+      <p style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--green-dark); line-height:1.6;">
+        "By living at GreenHaus, you personally prevent more carbon emissions than the average American produces in an entire year."
+      </p>
+      <p style="color:var(--text-muted); font-size:0.85rem; margin-top:1rem; font-weight:300;">Based on EPA and DOE residential energy benchmarks, 2024</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header">
+      <div class="section-label">Resident Stories</div>
+      <h2 class="section-title">Life at GreenHaus</h2>
+      <p class="section-desc">Hear from the people who call GreenHaus home.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"I've cut my electricity bill to almost nothing. The smart home app makes me feel like I'm actively participating in fighting climate change every single day."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div>
+            <div class="testi-name">Marcus R.</div>
+            <div class="testi-since">Resident since 2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"We moved here as a family and it's been incredible. The kids love the rooftop garden and knowing our home isn't hurting the planet means everything to us."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">JL</div>
+          <div>
+            <div class="testi-name">Jenna & Liam T.</div>
+            <div class="testi-since">Residents since 2022</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"The community here is something special. Everyone actually cares. We do composting workshops, group bike rides — it's more than an apartment, it's a movement."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">AP</div>
+          <div>
+            <div class="testi-name">Aaliyah P.</div>
+            <div class="testi-since">Resident since 2023</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="section-title">Ready to live differently?</h2>
+    <p>Limited units available. Join 300 residents already making a difference — one home at a time.</p>
+    <div class="cta-btns">
+      <a href="#contact" class="btn-white">Apply Today</a>
+      <a href="#rooms" class="btn-ghost">View Floor Plans</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Get in Touch</div>
+        <h3>We'd love to show you around.</h3>
+        <p>Book a free in-person tour, ask questions about availability, or learn more about life at GreenHaus. Our team responds within one business day.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong>Location</strong>
+            <span>Greater Boston Metro Area, MA</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <div class="contact-detail-text">
+            <strong>Phone</strong>
+            <span>(617) 555-0193</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            <span>hello@greenhaus.eco</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕐</div>
+          <div class="contact-detail-text">
+            <strong>Tours Available</strong>
+            <span>Mon–Sat, 10am–5pm</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>Book a Tour</h3>
+        <div class="form-group">
+          <label>FULL NAME</label>
+          <input type="text" placeholder="Jane Smith" id="fname">
+        </div>
+        <div class="form-group">
+          <label>EMAIL ADDRESS</label>
+          <input type="email" placeholder="jane@email.com" id="femail">
+        </div>
+        <div class="form-group">
+          <label>UNIT INTEREST</label>
+          <select id="funit">
+            <option value="">Select a unit type…</option>
+            <option>Studio Eco</option>
+            <option>One Bedroom</option>
+            <option>Two Bedroom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>MESSAGE (OPTIONAL)</label>
+          <textarea placeholder="Any questions or preferred tour times?" id="fmsg"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Send Inquiry</button>
+        <div class="success-msg" id="success-msg">✅ Thanks! We'll be in touch within one business day.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Green<span>Haus</span></div>
+  <div class="footer-links">
+    <a href="#about">Mission</a>
+    <a href="#features">Features</a>
+    <a href="#rooms">Units</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 GreenHaus. Building the future.</div>
+</footer>
+
+<script>
+// Build the animated apartment visual
+const building = document.getElementById('building');
+const patterns = [
+  [1,1,0,1,1,0],[0,1,1,0,1,1],[1,0,1,1,0,1],
+  [1,1,1,0,1,0],[0,1,0,1,1,1],[1,0,1,0,1,1],
+  [1,1,0,0,1,1],[0,1,1,1,0,1],[1,1,0,1,0,1],
+  [2,0,1,1,0,2]
+];
+patterns.forEach((pattern, fi) => {
+  const floor = document.createElement('div');
+  floor.className = 'floor';
+  pattern.forEach((type, wi) => {
+    const w = document.createElement('div');
+    w.className = 'window' + (type === 1 ? ' lit' : type === 2 ? ' solar' : '');
+    w.style.animationDelay = (fi * 0.15 + wi * 0.1) + 's';
+    floor.appendChild(w);
+  });
+  building.appendChild(floor);
+});
+
+// Form submission
+function submitForm() {
+  const name = document.getElementById('fname').value;
+  const email = document.getElementById('femail').value;
+  if (!name || !email) {
+    alert('Please fill in your name and email.');
+    return;
+  }
+  document.getElementById('success-msg').style.display = 'block';
+  document.getElementById('fname').value = '';
+  document.getElementById('femail').value = '';
+  document.getElementById('funit').value = '';
+  document.getElementById('fmsg').value = '';
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
